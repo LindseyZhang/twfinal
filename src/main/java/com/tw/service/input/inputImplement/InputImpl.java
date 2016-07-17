@@ -4,19 +4,21 @@ import com.tw.entity.Item;
 import com.tw.model.PayItem;
 import com.tw.service.ItemService;
 import com.tw.service.input.Inputs;
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static java.lang.Integer.parseInt;
 
 /**
  * Created by qq422 on 2016/7/17.
  */
 public class InputImpl implements Inputs {
+    static Logger logger = Logger.getLogger (InputImpl.class.getName());
 
     public HashMap<String, Item> itemMap;
 
@@ -30,79 +32,58 @@ public class InputImpl implements Inputs {
 
     @Override
     public ArrayList<PayItem> getPayItems(String barcodes) {
-        JSONArray inputsJson = new JSONArray(barcodes);
-        if (inputsJson.length() == 0) {
-            throw new IllegalArgumentException("there is no barcodes");
-        }
-        return mergeSameItems(getPayItems(inputsJson));
-    }
-
-    private ArrayList<PayItem> getPayItems(JSONArray inputsJson) {
-        ArrayList<PayItem> payItems = new ArrayList<>();
+        logger.info("user input barcodes :" + barcodes);
         itemMap = itemService.getItemMap();
+        return transferMapToList(barcodes);
+    }
 
-        for (Object input : inputsJson) {
-            if (isCountProvided(input)) {
-                payItems.add(getItemIfCountProvided(input));
-            } else {
-                payItems.add(convertToPayItem(itemMap.get(input), 1));
+    private ArrayList<PayItem> transferMapToList(String barcodes){
+        ArrayList<PayItem> payItemList = new ArrayList<>();
+        for (PayItem item :  getPayItemHashMap(barcodes).values()) {
+            payItemList.add(item);
+        }
+        logger.info("transfer barcodes String to ArrayList<PayItem> success");
+        return payItemList;
+    }
+
+    private HashMap<String, PayItem> getPayItemHashMap(String barcodes) {
+        HashMap<String, PayItem> payItemMap = new HashMap<>();
+        JSONArray jsonArray = new JSONArray(barcodes);
+        for (Object object : jsonArray) {
+            checkBarcodeFormat((String)object);
+            String[] spiltString = ((String)object).split("-");
+            addEachPayItemIntoMap(payItemMap, spiltString);
+        }
+        return payItemMap;
+    }
+    private void checkBarcodeFormat(String inBarcode) {
+        Matcher matcher = pattern.matcher(inBarcode);
+        if(!matcher.matches()){
+            logger.error("wrong barcode format:"+inBarcode);
+            throw new IllegalArgumentException("wrong barcode format:"+inBarcode);
+        }
+    }
+
+    private void addEachPayItemIntoMap(HashMap<String, PayItem> payItemMap, String[] spiltString) {
+        if(payItemMap.containsKey(spiltString[0])){
+            //若map中已经有该商品了，则添加
+            PayItem item = payItemMap.get(spiltString[0]);
+            if(spiltString.length==1){
+                payItemMap.get(spiltString[0]).setCount(item.getCount()+1);
+            }else{
+                payItemMap.get(spiltString[0]).setCount(item.getCount()+Integer.parseInt(spiltString[1]));
             }
-        }
-        return payItems;
-    }
-    private ArrayList<PayItem> mergeSameItems(ArrayList<PayItem> items) {
-        if (items.isEmpty()) {
-            throw new IllegalArgumentException("there is no pay item to show!");
-        }
-
-        ArrayList<PayItem> payItems = new ArrayList<>();
-
-        for (PayItem item : items) {
-            if (itemIsExist(item, payItems)) {
-                updatePayItems(item, payItems);
-            } else {
-                payItems.add(item);
+        }else{
+            //若map中还没有该商品，则new PayItem，并对其赋值
+            Item item = itemMap.get(spiltString[0]);
+            PayItem payItem = new PayItem(item.getName(), item.getBarcode(), item.getUnit(), item.getPrice(), 0);
+            if(spiltString.length==1){
+                payItem.setCount(1);
+            }else{
+                payItem.setCount(Integer.parseInt(spiltString[1]));
             }
+            payItemMap.put(payItem.getBarcode(), payItem);
         }
-
-        return payItems;
-    }
-    private boolean itemIsExist(PayItem payItem, ArrayList<PayItem> payItems) {
-        for (PayItem item : payItems) {
-            if (item.getBarcode().equals(payItem.getBarcode())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void updatePayItems(PayItem payItem, ArrayList<PayItem> payItems) {
-        for (PayItem payItem1 : payItems) {
-            if (payItem1.getBarcode().equals(payItem.getBarcode())) {
-                payItem1.setCount(payItem1.getCount() + payItem.getCount());
-            }
-        }
-    }
-
-    private boolean isCountProvided(Object input) {
-        return input.toString().contains("-");
-    }
-
-    private PayItem getItemIfCountProvided(Object input) {
-        String[] barcodeCount = input.toString().split("-");
-        return convertToPayItem(itemMap.get(barcodeCount[0]), getCount(barcodeCount));
-    }
-
-    private int getCount(String[] barcodeCount) {
-        int count = parseInt(barcodeCount[1]);
-        if (count < 0) {
-            throw new IllegalArgumentException(barcodeCount[0] + "'s count is "
-                    + barcodeCount[1] + ", can't be negative");
-        }
-        return count;
-    }
-    private PayItem convertToPayItem(Item item, int count) {
-        return new PayItem(item.getName(), item.getBarcode(), item.getUnit(), item.getPrice(), count);
     }
 
 }

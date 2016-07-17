@@ -32,6 +32,7 @@ dependencies {
 	compile('org.json:json:20151123')
 	compile('com.h2database:h2')
 	compile('org.mockito:mockito-core:1.9.5')
+	compile('junit:junit:4.11')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
