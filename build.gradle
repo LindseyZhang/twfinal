@@ -27,7 +27,11 @@ repositories {
 
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile("org.springframework.boot:spring-boot-starter-data-jpa")
+	compile('org.json:json:20151123')
+	compile('com.h2database:h2')
+	compile('org.mockito:mockito-core:1.9.5')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
