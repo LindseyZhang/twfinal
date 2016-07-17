@@ -25,8 +25,6 @@ import static junit.framework.TestCase.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = TwFinalApplication.class)
 public class TwFinalApplicationTests {
 //	private PosService posService;
 //
