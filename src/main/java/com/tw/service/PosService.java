@@ -2,6 +2,7 @@ package com.tw.service;
 
 import com.tw.dao.PromotionRepository;
 import com.tw.entity.Promotion;
+import com.tw.model.PayItem;
 import com.tw.service.Promotion.PromotionBase;
 import com.tw.service.Promotion.PromotionBuyTwoGetOneFree;
 import com.tw.service.Promotion.PromotionDiscount;
@@ -11,13 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ComputeService {
+public class PosService {
     private List<PromotionBase> allPromotions;
 
     @Autowired
     public PromotionRepository promotionRepository;
 
-    public ComputeService() {
+    public PosService() {
         this.allPromotions = new ArrayList<PromotionBase>();
     }
 
@@ -41,5 +42,9 @@ public class ComputeService {
 
     public List<PromotionBase> getAllPromotions() {
         return allPromotions;
+    }
+
+    public String getOutput(List<PayItem> payItems) {
+        return "";
     }
 }
