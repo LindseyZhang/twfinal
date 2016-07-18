@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ItemService {
@@ -15,7 +14,7 @@ public class ItemService {
     @Autowired
     public ItemRepository itemRepository;
 
-    public HashMap<String, Item> getItemMap() {
+    public HashMap<String, Item> loadItemToMap() {
         HashMap<String, Item> itemMap = new HashMap<>();
         List<Item> itemList = itemRepository.findAll();
 

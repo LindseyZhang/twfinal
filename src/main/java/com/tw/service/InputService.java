@@ -1,24 +1,20 @@
-package com.tw.service.input.inputImplement;
+package com.tw.service;
 
 import com.tw.entity.Item;
 import com.tw.model.PayItem;
-import com.tw.service.ItemService;
-import com.tw.service.input.Inputs;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-/**
- * Created by qq422 on 2016/7/17.
- */
-public class InputImpl implements Inputs {
-    static Logger logger = Logger.getLogger (InputImpl.class.getName());
+public class InputService {
+    static Logger logger = Logger.getLogger (InputService.class.getName());
 
     public HashMap<String, Item> itemMap;
 
@@ -28,31 +24,30 @@ public class InputImpl implements Inputs {
     /*
 	 * 正则表达式来确认输入字符的合法性
 	 */
-    Pattern pattern = Pattern.compile("^ITEM[0-9]{6}|^ITEM[0-9]{6}-[0-9]{1,}$");
+    static Pattern pattern = Pattern.compile("^ITEM[0-9]{6}|^ITEM[0-9]{6}-[0-9]{1,}$");
 
-    @Override
-    public ArrayList<PayItem> getPayItems(String barcodes) {
-        logger.info("user input barcodes :" + barcodes);
-        itemMap = itemService.getItemMap();
-        return transferMapToList(barcodes);
+
+    public InputService() {
+   //     itemMap = itemService.loadItemToMap();
     }
 
-    private ArrayList<PayItem> transferMapToList(String barcodes){
+    public List<PayItem> getPayItems(String barcodes) {
+        logger.info("user input barcodes :" + barcodes);
+        itemMap = itemService.loadItemToMap();  //TODO
         ArrayList<PayItem> payItemList = new ArrayList<>();
-        for (PayItem item :  getPayItemHashMap(barcodes).values()) {
+        for (PayItem item : getFinalPayItemMap(barcodes).values()) {
             payItemList.add(item);
         }
         logger.info("transfer barcodes String to ArrayList<PayItem> success");
         return payItemList;
     }
 
-    private HashMap<String, PayItem> getPayItemHashMap(String barcodes) {
+    private HashMap<String, PayItem> getFinalPayItemMap(String barcodes) {
         HashMap<String, PayItem> payItemMap = new HashMap<>();
-        JSONArray jsonArray = new JSONArray(barcodes);
-        for (Object object : jsonArray) {
-            checkBarcodeFormat((String)object);
-            String[] spiltString = ((String)object).split("-");
-            addEachPayItemIntoMap(payItemMap, spiltString);
+        JSONArray barcodesArray = new JSONArray(barcodes);
+        for (Object barcodeCountForamt : barcodesArray) {
+            checkBarcodeFormat((String)barcodeCountForamt);
+            mergeCurrentBarcodeCountFormatToPayItemMap(payItemMap, (String) barcodeCountForamt);
         }
         return payItemMap;
     }
@@ -64,9 +59,9 @@ public class InputImpl implements Inputs {
         }
     }
 
-    private void addEachPayItemIntoMap(HashMap<String, PayItem> payItemMap, String[] spiltString) {
+    private void mergeCurrentBarcodeCountFormatToPayItemMap(Map<String, PayItem> payItemMap, String barcodeCountFormat) {
+        String[] spiltString = barcodeCountFormat.split("-");
         if(payItemMap.containsKey(spiltString[0])){
-            //若map中已经有该商品了，则添加
             PayItem item = payItemMap.get(spiltString[0]);
             if(spiltString.length==1){
                 payItemMap.get(spiltString[0]).setCount(item.getCount()+1);
@@ -74,16 +69,12 @@ public class InputImpl implements Inputs {
                 payItemMap.get(spiltString[0]).setCount(item.getCount()+Integer.parseInt(spiltString[1]));
             }
         }else{
-            //若map中还没有该商品，则new PayItem，并对其赋值
             Item item = itemMap.get(spiltString[0]);
-            PayItem payItem = new PayItem(item.getName(), item.getBarcode(), item.getUnit(), item.getPrice(), 0);
-            if(spiltString.length==1){
-                payItem.setCount(1);
-            }else{
+            PayItem payItem = new PayItem(item);
+            if(spiltString.length != 1){
                 payItem.setCount(Integer.parseInt(spiltString[1]));
             }
             payItemMap.put(payItem.getBarcode(), payItem);
         }
     }
-
 }

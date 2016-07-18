@@ -5,13 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * Created by qq422 on 2016/7/17.
- */
 
 @Entity
 @Table(name = "PROMOTION")
-public class Promotion{
+public class Promotion {
 
     @Id
     @Column(name = "PROMOTIONNAME")
@@ -20,24 +17,24 @@ public class Promotion{
     @Column(name = "BARCODES")
     private String barcodes;
 
-        public Promotion(String promotionName, String barcodes) {
-            this.promotionName = promotionName;
-            this.barcodes = barcodes;
-        }
+    public Promotion(String promotionName, String barcodes) {
+        this.promotionName = promotionName;
+        this.barcodes = barcodes;
+    }
 
-        public String getPromotionName() {
-            return promotionName;
-        }
+    public String getPromotionName() {
+        return promotionName;
+    }
 
-        public void setPromotionName(String promotionName) {
-            this.promotionName = promotionName;
-        }
+    public void setPromotionName(String promotionName) {
+        this.promotionName = promotionName;
+    }
 
-        public String getBarcodes() {
-            return barcodes;
-        }
+    public String getBarcodes() {
+        return barcodes;
+    }
 
-        public void setBarcodes(String barcodes) {
-            this.barcodes = barcodes;
-        }
+    public void setBarcodes(String barcodes) {
+        this.barcodes = barcodes;
+    }
 }

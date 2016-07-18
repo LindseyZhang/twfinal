@@ -1,18 +1,30 @@
 package com.tw.model;
 
+import com.tw.entity.Item;
+
 public class PayItem {
+    private static final double DEFAULT_COUNT = 1;
+
     private String name;
     private String barcode;
     private String unit;
     private double price;
-    private int count;
+    private double count;
 
-    public PayItem(String name, String barcode, String unit, double price, int count) {
+    public PayItem(String name, String barcode, String unit, double price, double count) {
         this.name = name;
         this.barcode = barcode;
         this.unit = unit;
         this.price = price;
         this.count = count;
+    }
+
+    public PayItem(Item item){
+        this.name = item.getName();
+        this.barcode = item.getBarcode();
+        this.unit = item.getUnit();
+        this.price = item.getPrice();
+        this.count = DEFAULT_COUNT;
     }
 
     @Override
@@ -56,11 +68,11 @@ public class PayItem {
         this.price = price;
     }
 
-    public int getCount() {
+    public double getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(double count) {
         this.count = count;
     }
 }
