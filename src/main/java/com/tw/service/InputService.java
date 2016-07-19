@@ -28,12 +28,12 @@ public class InputService {
 
 
     public InputService() {
-   //     itemMap = itemService.loadItemToMap();
+   //     itemMap = itemService.loadItemFromDBToMap();
     }
 
     public List<PayItem> getPayItems(String barcodes) {
         logger.info("user input barcodes :" + barcodes);
-        itemMap = itemService.loadItemToMap();  //TODO
+        itemMap = itemService.loadItemFromDBToMap();
         ArrayList<PayItem> payItemList = new ArrayList<>();
         for (PayItem item : getFinalPayItemMap(barcodes).values()) {
             payItemList.add(item);

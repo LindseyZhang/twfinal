@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class InputTest {
         itemMap.put("ITEM000001", new Item("ITEM000001", "雪碧", "瓶", "", "", 3.00));
         itemMap.put("ITEM000004", new Item("ITEM000004", "电池", "个", "", "", 2.00));
         InputService inputs = new InputService();
-        when(itemService.loadItemToMap()).thenReturn(itemMap);
+        when(itemService.loadItemFromDBToMap()).thenReturn(itemMap);
         inputs.itemService = itemService;
         List<PayItem> result = inputs.getPayItems(barcodes);
         assertEquals(result.size(),3);

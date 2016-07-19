@@ -62,7 +62,7 @@ public class TwFinalApplicationTests {
 //		itemMap.put("ITEM000001", new Item("ITEM000001", "雪碧", "瓶", "", "", 3.00));
 //		itemMap.put("ITEM000004", new Item("ITEM000004", "电池", "个", "", "", 2.00));
 //		Inputs inputs = new InputImpl();
-//		when(itemService.loadItemToMap()).thenReturn(itemMap);
+//		when(itemService.loadItemFromDBToMap()).thenReturn(itemMap);
 //		((InputImpl)inputs).itemService = itemService;
 //		ArrayList<PayItem> result = inputs.getPayItems(barcodes);
 //		assertEquals(result.size(),3);
@@ -71,7 +71,7 @@ public class TwFinalApplicationTests {
 //	@Test
 //	public void testGenerateReceiptFromBarcodesWithRepeat() {
 //		String barcodes = "['ITEM000000-3','ITEM000000-2','ITEM000001-2', 'ITEM000004']";
-//		when(itemService.loadItemToMap()).thenReturn(itemMap);
+//		when(itemService.loadItemFromDBToMap()).thenReturn(itemMap);
 //
 //		String result = posService.generateReceiptFromBarcodes(barcodes);
 //
@@ -94,7 +94,7 @@ public class TwFinalApplicationTests {
 //				+ "总计：42.20\\(元\\)\n"
 //				+ "节省：1.80\\(元\\)\n"
 //				+ "\\*{20,50}";
-//		when(itemService.loadItemToMap()).thenReturn(itemMap);
+//		when(itemService.loadItemFromDBToMap()).thenReturn(itemMap);
 //
 //		String result = posService.generateReceiptFromBarcodes(barcodes);
 //
@@ -117,7 +117,7 @@ public class TwFinalApplicationTests {
 //				+ "总计：32.00\\(元\\)\n"
 //				+ "节省：12.00\\(元\\)\n"
 //				+ "\\*{20,50}";
-//		when(itemService.loadItemToMap()).thenReturn(itemMap);
+//		when(itemService.loadItemFromDBToMap()).thenReturn(itemMap);
 //
 //		String result = posService.generateReceiptFromBarcodes(barcodes);
 //
