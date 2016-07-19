@@ -30,7 +30,7 @@ public class PayItem {
     @Override
     public String toString() {
         return "名称：" + this.getName()
-                + "，数量：" + this.getCount() + this.getUnit()
+                + "，数量：" + String.format("%.2f",this.getCount()) + this.getUnit()
                 + "，单价：" + String.format("%.2f", this.getPrice())
                 + "(元)";
     }

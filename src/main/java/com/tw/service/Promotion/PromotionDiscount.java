@@ -17,7 +17,8 @@ public final class PromotionDiscount extends PromotionBase {
     @Override
     public String getItemSellDetail(PayItem item) {
         double savedMoney = getMoneySavedByCurrentItem(item);
-        return item.toString() + "，小计：" + (item.getCount()*item.getPrice() - savedMoney) +",节省：" + savedMoney;
+        return item.toString() + "，小计：" + String.format("%.2f",item.getCount()*item.getPrice() - savedMoney)
+                 + "(元),节省：" + String.format("%.2f",savedMoney) + "(元)\n";
     }
 
     @Override

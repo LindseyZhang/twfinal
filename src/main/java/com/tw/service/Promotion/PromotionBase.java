@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PromotionBase {
-    private List<String> barcodes;
+    private List<String> barcodes = new ArrayList<String>();
 
     private CompareFunction compareFunction = new CompareFunction();
+
+    public PromotionBase() {
+    }
 
     public PromotionBase(String barcodes){
         LoadPromotionBarcodes(barcodes);
@@ -29,7 +32,8 @@ public class PromotionBase {
     }
 
     public String getItemSellDetail(PayItem item) {
-        return null;
+        double sum = item.getCount()*item.getPrice();
+        return item.toString() + "，小计：" + String.format("%.2f",sum) + "(元)\n";
     }
 
     public String getPromotionName() {
@@ -58,12 +62,9 @@ public class PromotionBase {
     }
 
     private void LoadPromotionBarcodes(String barcodesString) {
-        barcodes = new ArrayList<String>();
         String[] splitBarcodesString = barcodesString.split(",");
         for (String barcode: splitBarcodesString){
             barcodes.add(barcode);
         }
     }
-
-
 }
