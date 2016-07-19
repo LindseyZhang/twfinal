@@ -14,8 +14,8 @@ public class PosController {
 //
 //    @RequestMapping(value = "receipts", method = RequestMethod.POST)
 //    @ResponseBody
-//    public String generateReceiptFromBarcodes(@RequestBody String inputs) {
-//        String receipt = posService.generateReceiptFromBarcodes(inputs);
+//    public String generateReceiptFromBarcodes(@RequestBody String InputService) {
+//        String receipt = posService.generateReceiptFromBarcodes(InputService);
 //        return receipt;
 //    }
 }

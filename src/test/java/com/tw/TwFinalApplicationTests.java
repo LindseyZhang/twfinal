@@ -1,27 +1,11 @@
 package com.tw;
 
-import com.tw.entity.Item;
-import com.tw.model.PayItem;
-import com.tw.service.ItemService;
 //import com.tw.service.OutputService;
 //import com.tw.service.PosService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
-
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 public class TwFinalApplicationTests {
 //	private PosService posService;
@@ -61,10 +45,10 @@ public class TwFinalApplicationTests {
 //		itemMap.put("ITEM000000", new Item("ITEM000000", "可口可乐", "瓶", "", "", 3.00));
 //		itemMap.put("ITEM000001", new Item("ITEM000001", "雪碧", "瓶", "", "", 3.00));
 //		itemMap.put("ITEM000004", new Item("ITEM000004", "电池", "个", "", "", 2.00));
-//		Inputs inputs = new InputImpl();
+//		Inputs InputService = new InputImpl();
 //		when(itemService.loadItemFromDBToMap()).thenReturn(itemMap);
-//		((InputImpl)inputs).itemService = itemService;
-//		ArrayList<PayItem> result = inputs.getPayItems(barcodes);
+//		((InputImpl)InputService).itemService = itemService;
+//		ArrayList<PayItem> result = InputService.getPayItems(barcodes);
 //		assertEquals(result.size(),3);
 //	}
 //

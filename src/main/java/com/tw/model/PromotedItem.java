@@ -1,31 +1,34 @@
 package com.tw.model;
 
-import com.tw.entity.Item;
+/**
+ * Created by qq422 on 2016/7/19.
+ */
+public class PromotedItem {
 
-public class PayItem {
-
+    private int promotionLevel;
     private String name;
     private String barcode;
     private String unit;
     private double price;
     private int count;
+    private double discountPrice;
+    private double subtotal;
 
-    public PayItem(String name, String barcode, String unit, double price, int count) {
-        this.name = name;
-        this.barcode = barcode;
-        this.unit = unit;
-        this.price = price;
-        this.count = count;
+    public double getSubtotal() {
+        return subtotal;
     }
 
-    @Override
-    public String toString() {
-        return "名称：" + this.getName()
-                + "，数量：" + this.getCount() + this.getUnit()
-                + "，单价：" + String.format("%.2f", this.getPrice())
-                + "(元)";
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
     }
 
+    public int getPromotionLevel() {
+        return promotionLevel;
+    }
+
+    public void setPromotionLevel(int promotionLevel) {
+        this.promotionLevel = promotionLevel;
+    }
 
     public String getName() {
         return name;
@@ -65,5 +68,13 @@ public class PayItem {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public double getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(double discountPrice) {
+        this.discountPrice = discountPrice;
     }
 }

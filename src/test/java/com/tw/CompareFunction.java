@@ -1,7 +1,5 @@
 package com.tw;
 
-import com.tw.service.Promotion.PromotionBase;
-
 import java.util.List;
 
 public class CompareFunction<T> {

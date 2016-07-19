@@ -1,19 +1,12 @@
 package com.tw;
 
-import com.tw.dao.PromotionRepository;
 import com.tw.model.PayItem;
-import com.tw.service.PosService;
-import com.tw.service.Promotion.PromotionBuyTwoGetOneFree;
-import com.tw.service.Promotion.PromotionDiscount;
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 public class PosServiceTest {
 
