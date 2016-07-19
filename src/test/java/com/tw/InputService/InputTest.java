@@ -2,6 +2,7 @@ package com.tw.InputService;
 
 import com.tw.entity.Item;
 import com.tw.model.PayItem;
+import com.tw.service.ItemService;
 import com.tw.service.input.InputService;
 import com.tw.service.input.inputsImpl.InputServiceImple;
 import org.junit.Before;
@@ -24,6 +25,7 @@ public class InputTest {
     @Mock
     ItemService itemService;
 
+
     @Before
     public void setUp() throws Exception {
         initMocks(this);
@@ -31,16 +33,16 @@ public class InputTest {
 
     @Test
     public void testInputService() {
-        String barcodes = "['ITEM000000','ITEM000000','ITEM000000','ITEM000000',"
-                + "'ITEM000000','ITEM000001','ITEM000001', 'ITEM000004' ]";
+        String barcodes = "['ITEM000001','ITEM000001','ITEM000001','ITEM000001',"
+                + "'ITEM000001','ITEM000003','ITEM000003', 'ITEM000005' ]";
         HashMap<String,Item> itemMap = new HashMap<>();
-        itemMap.put("ITEM000000", new Item("ITEM000000", "可口可乐", "瓶", "", "", 3.00));
-        itemMap.put("ITEM000001", new Item("ITEM000001", "雪碧", "瓶", "", "", 3.00));
-        itemMap.put("ITEM000004", new Item("ITEM000004", "电池", "个", "", "", 2.00));
+        itemMap.put("ITEM000001", new Item("ITEM000001", "可口可乐", "瓶", "", "", 3.00));
+        itemMap.put("ITEM000003", new Item("ITEM000003", "羽毛球", "个", "", "", 1.00));
+        itemMap.put("ITEM000005", new Item("ITEM000005", "苹果", "斤", "", "", 5.50));
         InputService inputs = new InputServiceImple();
         when(itemService.loadItemFromDBToMap()).thenReturn(itemMap);
         ((InputServiceImple)inputs).itemService = itemService;
         ArrayList<PayItem> result = inputs.transferStringToList(barcodes);
-        assertEquals(result.size(),3);
+        assertEquals(3,result.size());
     }
 }

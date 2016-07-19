@@ -10,6 +10,8 @@ public class PromotionFactory {
         switch (promotionName){
             case "BUY_TWO_GET_ONE_FREE":
                 return new BuyTwoGiveOne();
+            case "SELL_BY_95":
+                return new SellBy95();
             default:
                 throw new RuntimeException("No promotion's name is "+promotionName);
         }

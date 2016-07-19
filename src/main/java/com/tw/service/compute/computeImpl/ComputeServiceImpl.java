@@ -37,7 +37,7 @@ public class ComputeServiceImpl implements ComputeService {
      * @return ComputedItem
      */
     @Override
-    public ComputedItem computePromotion(ArrayList<PayItem> payItems) {
+    public ComputedItem computePromotion(List<PayItem> payItems) {
 
         if(payItems.isEmpty())
             throw new NullPointerException("there is no payitems!");
@@ -51,15 +51,21 @@ public class ComputeServiceImpl implements ComputeService {
                     if(payItem.getBarcode().equals(enableBarcode)){
                         PromotionInterface promotionMethod = PromotionFactory.getPromotion(promotionData.getPromotionName());
                         PromotedItem promotionItem = promotionMethod.computePromotion(payItem);
-                        computedItem.getPromotions().get(promotionData.getPromotionName()).add(promotionItem);
-                        computedItem.setTotalPrice(computedItem.getTotalPrice()+promotionItem.getSubtotal());
-                        computedItem.setDiscountPrice(computedItem.getDiscountPrice()+promotionItem.getDiscountPrice());
-                        isPromotion = true;
+                        if(promotionItem.getDiscountPrice()!=0) {
+                            computedItem.getPromotions().get(promotionData.getPromotionName()).add(promotionItem);
+                            computedItem.setTotalPrice(computedItem.getTotalPrice() + promotionItem.getSubtotal());
+                            computedItem.setDiscountPrice(computedItem.getDiscountPrice() + promotionItem.getDiscountPrice());
+                            isPromotion = true;
+                            break;
+                        }
                     }
                 }
+                if(isPromotion)
+                    break;
             }
             if(!isPromotion){
                 computedItem.getNormalPayitem().add(payItem);
+                computedItem.setTotalPrice(computedItem.getTotalPrice() + payItem.getCount()*payItem.getPrice());
             }
         }
         return computedItem;
@@ -74,14 +80,7 @@ public class ComputeServiceImpl implements ComputeService {
             String[] barcodes = item.getBarcodes().split(",");
             promotionData.setNeedPromotionBarcodes(barcodes);
             promotionDatas.add(promotionData);
-            computedItem.getPromotions().put(item.getPromotionName(),new ArrayList<PromotedItem>());
+            computedItem.getPromotions().put(item.getPromotionName(), new ArrayList<PromotedItem>());
         }
-//        int promotionNum = promotionDatas.size();
-//        for(int i = 0;i < promotionNum - 1;i++) {
-//            for (PromotionData promotionData : promotionDatas) {
-//
-//
-//            }
-//        }
     }
 }

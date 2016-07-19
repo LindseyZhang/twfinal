@@ -22,8 +22,8 @@ public class SellBy95 implements PromotionInterface {
         promotedItem.setName(payItem.getName());
         promotedItem.setPrice(payItem.getPrice());
         promotedItem.setUnit(payItem.getUnit());
-        promotedItem.setDiscountPrice((payItem.getPrice()*payItem.getCount())*DISCOUNT_RATE);
-        promotedItem.setSubtotal(payItem.getPrice()*payItem.getCount()-promotedItem.getDiscountPrice());
+        promotedItem.setSubtotal((payItem.getPrice()*payItem.getCount())*DISCOUNT_RATE);
+        promotedItem.setDiscountPrice(payItem.getPrice()*payItem.getCount()-promotedItem.getSubtotal());
         promotedItem.setCount(payItem.getCount());
         return promotedItem;
     }
