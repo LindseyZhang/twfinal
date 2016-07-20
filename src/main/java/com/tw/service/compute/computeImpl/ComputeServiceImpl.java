@@ -43,47 +43,70 @@ public class ComputeServiceImpl implements ComputeService {
             throw new NullPointerException("input List is no payitems!");
         }
         logger.info("start to compute input List");
+
         initPromotionData();
 
         for (PayItem payItem : payItems) {
-            boolean isPromotion = false;
-            for (PromotionData promotionData : promotionDatas ) {
-                for (String enableBarcode : promotionData.getNeedPromotionBarcodes()) {
-                    if(payItem.getBarcode().equals(enableBarcode)){
-                        PromotionInterface promotionMethod = PromotionFactory.getPromotion(promotionData.getPromotionName());
-                        PromotedItem promotionItem = promotionMethod.computePromotion(payItem);
-                        if(promotionItem.getDiscountPrice()!=0) {
-                            computedItem.getPromotions().get(promotionData.getPromotionName()).add(promotionItem);
-                            computedItem.setTotalPrice(computedItem.getTotalPrice() + promotionItem.getSubtotal());
-                            computedItem.setDiscountPrice(computedItem.getDiscountPrice() + promotionItem.getDiscountPrice());
-                            isPromotion = true;
-                            break;
-                        }
-                    }
-                }
-                if(isPromotion)
-                    break;
-            }
-            if(!isPromotion){
-                computedItem.getNormalPayitem().add(payItem);
-                computedItem.setTotalPrice(computedItem.getTotalPrice() + payItem.getCount()*payItem.getPrice());
-            }
+            computeEachItem(payItem);
         }
         return computedItem;
+    }
+
+    private void computeEachItem(PayItem payItem) {
+        boolean isPromotion = false;
+        isPromotion = computePromotionItem(payItem, isPromotion);
+        computeNormalItem(payItem, isPromotion);
+    }
+
+    private void computeNormalItem(PayItem payItem, boolean isPromotion) {
+        if(!isPromotion){
+            computedItem.getNormalPayitem().add(payItem);
+            computedItem.setTotalPrice(computedItem.getTotalPrice() + payItem.getCount()*payItem.getPrice());
+        }
+    }
+
+    private boolean computePromotionItem(PayItem payItem, boolean isPromotion) {
+        for (PromotionData promotionData : promotionDatas ) {
+            isPromotion = computeItemAccordingType(payItem, isPromotion, promotionData);
+            if(isPromotion)
+                break;
+        }
+        return isPromotion;
+    }
+
+    private boolean computeItemAccordingType(PayItem payItem, boolean isPromotion, PromotionData promotionData) {
+        for (String enableBarcode : promotionData.getNeedPromotionBarcodes()) {
+            if(payItem.getBarcode().equals(enableBarcode)){
+                PromotionInterface promotionMethod = PromotionFactory.getPromotion(promotionData.getPromotionName());
+                PromotedItem promotionItem = promotionMethod.computePromotion(payItem);
+                if(promotionItem.getDiscountPrice()!=0) {
+                    computedItem.getPromotions().get(promotionData.getPromotionName()).add(promotionItem);
+                    computedItem.setTotalPrice(computedItem.getTotalPrice() + promotionItem.getSubtotal());
+                    computedItem.setDiscountPrice(computedItem.getDiscountPrice() + promotionItem.getDiscountPrice());
+                    isPromotion = true;
+                    break;
+                }
+            }
+        }
+        return isPromotion;
     }
 
     private void initPromotionData() {
         List<Promotion> promotions = itemService.loadPromotionFromDB();
         promotionDatas = new ArrayList<>();
         for (Promotion item:promotions) {
-            PromotionData promotionData = new PromotionData();
-            promotionData.setPromotionName(item.getPromotionName());
-            String[] barcodes = item.getBarcodes().split(",");
-            promotionData.setNeedPromotionBarcodes(barcodes);
-            promotionDatas.add(promotionData);
-            computedItem.getPromotions().put(item.getPromotionName(), new ArrayList<PromotedItem>());
-            computedItem.getPromotianName().add(item.getPromotionName());
+            transferDBdataToPromotionList(item);
         }
         logger.info("init Promotion Data success!");
+    }
+
+    private void transferDBdataToPromotionList(Promotion item) {
+        PromotionData promotionData = new PromotionData();
+        promotionData.setPromotionName(item.getPromotionName());
+        String[] barcodes = item.getBarcodes().split(",");
+        promotionData.setNeedPromotionBarcodes(barcodes);
+        promotionDatas.add(promotionData);
+        computedItem.getPromotions().put(item.getPromotionName(), new ArrayList<PromotedItem>());
+        computedItem.getPromotianName().add(item.getPromotionName());
     }
 }

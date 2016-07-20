@@ -4,9 +4,6 @@ import com.tw.model.PayItem;
 import com.tw.model.PromotedItem;
 import com.tw.service.promotion.PromotionInterface;
 
-/**
- * Created by qq422 on 2016/7/19.
- */
 public class BuyTwoGiveOne implements PromotionInterface {
 
     public final int FREE_NUM = 2;

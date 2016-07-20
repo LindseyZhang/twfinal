@@ -21,6 +21,14 @@ public class OutputBuyTwoGiveOne implements OutputEachItem {
 
         StringBuilder front = new StringBuilder();
         StringBuilder last = new StringBuilder();
+        transferToStringBuilder(promotedItems, front, last);
+        OutputItem outputItem = new OutputItem();
+        outputItem.setFrontPart(front);
+        outputItem.setLastPart(last);
+        return outputItem;
+    }
+
+    private void transferToStringBuilder(List<PromotedItem> promotedItems, StringBuilder front, StringBuilder last) {
         if(promotedItems.size()!=0) {
             last.append("买二赠一商品：\n");
         }
@@ -32,9 +40,5 @@ public class OutputBuyTwoGiveOne implements OutputEachItem {
             last.append("名称："+item.getName()+"，数量："+item.getCount()/THREE+item.getUnit()+"\n");
 
         }
-        OutputItem ouputItem = new OutputItem();
-        ouputItem.setFrontPart(front);
-        ouputItem.setLastPart(last);
-        return ouputItem;
     }
 }

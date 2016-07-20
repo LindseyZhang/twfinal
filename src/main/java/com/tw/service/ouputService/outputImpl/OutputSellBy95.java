@@ -18,6 +18,14 @@ public class OutputSellBy95 implements OutputEachItem {
     public OutputItem getEachItem(List<PromotedItem> promotedItems) {
         StringBuilder front = new StringBuilder();
         StringBuilder last = new StringBuilder();
+        transferToStringBuilder(promotedItems, front);
+        OutputItem ouputItem = new OutputItem();
+        ouputItem.setFrontPart(front);
+        ouputItem.setLastPart(last);
+        return ouputItem;
+    }
+
+    private void transferToStringBuilder(List<PromotedItem> promotedItems, StringBuilder front) {
         for (PromotedItem item : promotedItems) {
             front.append("名称："+item.getName()+"，");
             front.append("数量："+item.getCount()+item.getUnit()+"，");
@@ -25,9 +33,5 @@ public class OutputSellBy95 implements OutputEachItem {
             front.append("小计："+String.format("%.2f", item.getSubtotal())+"(元)，");
             front.append("节省："+String.format("%.2f", item.getDiscountPrice())+"(元)\n");
         }
-        OutputItem ouputItem = new OutputItem();
-        ouputItem.setFrontPart(front);
-        ouputItem.setLastPart(last);
-        return ouputItem;
     }
 }

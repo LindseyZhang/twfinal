@@ -6,9 +6,6 @@ import com.tw.service.promotion.PromotionInterface;
 
 import java.math.BigDecimal;
 
-/**
- * Created by qq422 on 2016/7/19.
- */
 public class SellBy95 implements PromotionInterface {
     public final double DISCOUNT_RATE = 0.95;
     public final double NO_DISCOUNT_RATE = 0.05;
@@ -27,9 +24,9 @@ public class SellBy95 implements PromotionInterface {
         promotedItem.setUnit(payItem.getUnit());
         double result = (payItem.getPrice()*payItem.getCount())*DISCOUNT_RATE;
         BigDecimal bg = new BigDecimal(result);
-        double f1 = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-        promotedItem.setSubtotal(f1);
-        promotedItem.setDiscountPrice((payItem.getPrice()*payItem.getCount())-f1);
+        double temp = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        promotedItem.setSubtotal(temp);
+        promotedItem.setDiscountPrice((payItem.getPrice()*payItem.getCount())-temp);
         promotedItem.setCount(payItem.getCount());
         return promotedItem;
     }
