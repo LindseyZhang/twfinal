@@ -56,8 +56,10 @@ public class InputServiceImple implements InputService {
     }
 
     private void checkInStore(HashMap<String, PayItem> payItemMap, String object) {
-        if(!itemMap.containsKey(object))
-            throw new RuntimeException(object +" is not in store");
+        if(!itemMap.containsKey(object)) {
+            logger.error(object + " is not in store");
+            throw new RuntimeException(object + " is not in store");
+        }
     }
 
     private void checkBarcodeFormat(String inBarcode) {

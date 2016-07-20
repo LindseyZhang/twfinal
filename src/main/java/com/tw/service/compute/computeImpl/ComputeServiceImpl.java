@@ -9,11 +9,11 @@ import com.tw.service.ItemService;
 import com.tw.service.compute.ComputeService;
 import com.tw.service.promotion.PromotionInterface;
 import com.tw.service.promotion.promotionImpl.PromotionFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -21,6 +21,7 @@ import java.util.List;
  */
 @Service
 public class ComputeServiceImpl implements ComputeService {
+    static Logger logger = Logger.getLogger (ComputeServiceImpl.class.getName());
 
     @Autowired
     public ItemService itemService;
@@ -29,9 +30,6 @@ public class ComputeServiceImpl implements ComputeService {
 
     ComputedItem computedItem;
 
-    public ComputeServiceImpl(){
-        computedItem = new ComputedItem();
-    }
 
     /**
      * 将接到的买入商品列表处理成输出的ComputedItem类
@@ -41,9 +39,12 @@ public class ComputeServiceImpl implements ComputeService {
     @Override
     public ComputedItem computePromotion(List<PayItem> payItems) {
 
-        if(payItems.isEmpty())
-            throw new NullPointerException("there is no payitems!");
-
+        computedItem = new ComputedItem();
+        if(payItems.isEmpty()) {
+            logger.error("input List is no payitems!");
+            throw new NullPointerException("input List is no payitems!");
+        }
+        logger.info("start to compute input List");
         initPromotionData();
 
         for (PayItem payItem : payItems) {
@@ -85,5 +86,6 @@ public class ComputeServiceImpl implements ComputeService {
             computedItem.getPromotions().put(item.getPromotionName(), new ArrayList<PromotedItem>());
             computedItem.getPromotianName().add(item.getPromotionName());
         }
+        logger.info("init Promotion Data success!");
     }
 }

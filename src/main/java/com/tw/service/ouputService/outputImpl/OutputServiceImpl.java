@@ -3,19 +3,17 @@ package com.tw.service.ouputService.outputImpl;
 import com.tw.model.ComputedItem;
 import com.tw.model.OutputItem;
 import com.tw.model.PayItem;
-import com.tw.model.PromotedItem;
 import com.tw.service.ouputService.OutputEachItem;
 import com.tw.service.ouputService.OutputService;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 
 /**
  * Created by qq422 on 2016/7/19.
  */
 @Service
 public class OutputServiceImpl extends OutputServiceBase implements OutputService {
-
+    static Logger logger = Logger.getLogger (OutputServiceImpl.class.getName());
     /**
      * 将处理完的PromotedItem，处理成String结果
      *
@@ -24,6 +22,12 @@ public class OutputServiceImpl extends OutputServiceBase implements OutputServic
      */
     @Override
     public String getOutput(ComputedItem computedItem) {
+        if(computedItem==null){
+            logger.error("computed item is null!");
+            throw new NullPointerException("computed item is null!");
+        }
+
+        logger.info("compute finish and output result");
         StringBuilder output = new StringBuilder();
         StringBuilder front = new StringBuilder();
         StringBuilder last = new StringBuilder();
@@ -52,7 +56,7 @@ public class OutputServiceImpl extends OutputServiceBase implements OutputServic
             output.append("节省：" + String.format("%.2f", computedItem.getDiscountPrice()) + "(元)\n");
         }
         output.append(getbotton());
-
+        logger.info(output.toString());
         return output.toString();
     }
 

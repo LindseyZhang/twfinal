@@ -5,7 +5,7 @@ package com.tw.model;
  */
 public class PromotedItem {
 
-    private int promotionLevel;
+
     private String name;
     private String barcode;
     private String unit;
@@ -20,14 +20,6 @@ public class PromotedItem {
 
     public void setSubtotal(double subtotal) {
         this.subtotal = subtotal;
-    }
-
-    public int getPromotionLevel() {
-        return promotionLevel;
-    }
-
-    public void setPromotionLevel(int promotionLevel) {
-        this.promotionLevel = promotionLevel;
     }
 
     public String getName() {
@@ -76,5 +68,39 @@ public class PromotedItem {
 
     public void setDiscountPrice(double discountPrice) {
         this.discountPrice = discountPrice;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PromotedItem that = (PromotedItem) o;
+
+        if (Double.compare(that.price, price) != 0) return false;
+        if (count != that.count) return false;
+        if (Double.compare(that.discountPrice, discountPrice) != 0) return false;
+        if (Double.compare(that.subtotal, subtotal) != 0) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (barcode != null ? !barcode.equals(that.barcode) : that.barcode != null) return false;
+        return unit != null ? unit.equals(that.unit) : that.unit == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (barcode != null ? barcode.hashCode() : 0);
+        result = 31 * result + (unit != null ? unit.hashCode() : 0);
+        temp = Double.doubleToLongBits(price);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + count;
+        temp = Double.doubleToLongBits(discountPrice);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(subtotal);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 }
