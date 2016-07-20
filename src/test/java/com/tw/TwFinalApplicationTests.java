@@ -40,7 +40,7 @@ public class TwFinalApplicationTests {
     }
 
     @Test
-    public void testTwFinalApplicationTests() {
+    public void testTwFinalApplicationTestsWithTwoPromotion() {
         String barcodes = "['ITEM000001', 'ITEM000001',  'ITEM000001',  'ITEM000001',  'ITEM000001',  'ITEM000003-2',  'ITEM000005',  'ITEM000005',  'ITEM000005']";
         HashMap<String,Item> itemMap = new HashMap<>();
         itemMap.put("ITEM000001", new Item("ITEM000001", "可口可乐", "瓶", "", "", 3.00));
@@ -69,8 +69,75 @@ public class TwFinalApplicationTests {
                 + "名称：可口可乐，数量：2瓶\n"
                 + "名称：羽毛球，数量：1个\n"
                 + "-{20,50}\n"
-                + "总计：32.68\\(元\\)\n"
+                + "总计：32.67\\(元\\)\n"
                 + "节省：7.83\\(元\\)\n"
+                + "\\*{20,50}\n";
+        assertTrue(results.matches(expectResult));
+    }
+
+    @Test
+    public void testTwFinalApplicationTestsWithBuyTwoGiveOnew() {
+        String barcodes = "['ITEM000001', 'ITEM000001',  'ITEM000001',  'ITEM000001',  'ITEM000001',  'ITEM000003-2',  'ITEM000005',  'ITEM000005',  'ITEM000005']";
+        HashMap<String,Item> itemMap = new HashMap<>();
+        itemMap.put("ITEM000001", new Item("ITEM000001", "可口可乐", "瓶", "", "", 3.00));
+        itemMap.put("ITEM000003", new Item("ITEM000003", "羽毛球", "个", "", "", 1.00));
+        itemMap.put("ITEM000005", new Item("ITEM000005", "苹果", "斤", "", "", 5.50));
+        InputService inputs = new InputServiceImple();
+        when(itemService.loadItemFromDBToMap()).thenReturn(itemMap);
+        ((InputServiceImple)inputs).itemService = itemService;
+        ArrayList<PayItem> result = inputs.transferStringToList(barcodes);
+        List<Promotion> promotions = new ArrayList<>();
+        promotions.add(new Promotion("BUY_TWO_GET_ONE_FREE","ITEM000001,ITEM000003",1));
+        ComputeService computeService = new ComputeServiceImpl();
+        when(itemService.loadPromotionFromDB()).thenReturn(promotions);
+        ((ComputeServiceImpl)computeService).itemService = itemService;
+        ComputedItem computedItem = computeService.computePromotion(result);
+        OutputService outputService = new OutputServiceImpl();
+        String results = outputService.getOutput(computedItem);
+        System.out.println(results);
+        String expectResult = "\\*\\*\\*<没钱赚商店>购物清单\\*\\*\\*\n"
+                + "名称：苹果，数量：3斤，单价：5.50\\(元\\)，小计：16.50\\(元\\)\n"
+                + "名称：可口可乐，数量：7瓶，单价：3.00\\(元\\)，小计：15.00\\(元\\)\n"
+                + "名称：羽毛球，数量：3个，单价：1.00\\(元\\)，小计：2.00\\(元\\)\n"
+                + "-{20,50}\n"
+                + "买二赠一商品：\n"
+                + "名称：可口可乐，数量：2瓶\n"
+                + "名称：羽毛球，数量：1个\n"
+                + "-{20,50}\n"
+                + "总计：33.50\\(元\\)\n"
+                + "节省：7.00\\(元\\)\n"
+                + "\\*{20,50}\n";
+        assertTrue(results.matches(expectResult));
+    }
+
+
+    @Test
+    public void testTwFinalApplicationTestsWithSellBy95() {
+        String barcodes = "['ITEM000001', 'ITEM000001',  'ITEM000001',  'ITEM000001',  'ITEM000001',  'ITEM000003-2',  'ITEM000005',  'ITEM000005',  'ITEM000005']";
+        HashMap<String,Item> itemMap = new HashMap<>();
+        itemMap.put("ITEM000001", new Item("ITEM000001", "可口可乐", "瓶", "", "", 3.00));
+        itemMap.put("ITEM000003", new Item("ITEM000003", "羽毛球", "个", "", "", 1.00));
+        itemMap.put("ITEM000005", new Item("ITEM000005", "苹果", "斤", "", "", 5.50));
+        InputService inputs = new InputServiceImple();
+        when(itemService.loadItemFromDBToMap()).thenReturn(itemMap);
+        ((InputServiceImple)inputs).itemService = itemService;
+        ArrayList<PayItem> result = inputs.transferStringToList(barcodes);
+        List<Promotion> promotions = new ArrayList<>();
+        promotions.add(new Promotion("SELL_BY_95","ITEM000005",2));
+        ComputeService computeService = new ComputeServiceImpl();
+        when(itemService.loadPromotionFromDB()).thenReturn(promotions);
+        ((ComputeServiceImpl)computeService).itemService = itemService;
+        ComputedItem computedItem = computeService.computePromotion(result);
+        OutputService outputService = new OutputServiceImpl();
+        String results = outputService.getOutput(computedItem);
+        System.out.println(results);
+        String expectResult = "\\*\\*\\*<没钱赚商店>购物清单\\*\\*\\*\n"
+                + "名称：可口可乐，数量：5瓶，单价：3.00\\(元\\)，小计：15.00\\(元\\)\n"
+                + "名称：羽毛球，数量：2个，单价：1.00\\(元\\)，小计：2.00\\(元\\)\n"
+                + "名称：苹果，数量：3斤，单价：5.50\\(元\\)，小计：15.67\\(元\\)，节省：0.83\\(元\\)\n"
+                + "-{20,50}\n"
+                + "总计：32.67\\(元\\)\n"
+                + "节省：0.83\\(元\\)\n"
                 + "\\*{20,50}\n";
         assertTrue(results.matches(expectResult));
     }
