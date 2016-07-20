@@ -26,7 +26,7 @@ public class PosController {
     @RequestMapping(value = "receipts", method = RequestMethod.POST)
     @ResponseBody
     public String generateReceiptFromBarcodes(HttpServletResponse response, @RequestBody String inputs) {
-        logger.info("request body :" +inputs);
+        logger.info("request body :" + inputs);
         String receipt = outputService.getOutput(computeService.computePromotion(inputService.transferStringToList(inputs)));
         System.out.println(receipt);
         response.setContentType("charset=utf-8");
