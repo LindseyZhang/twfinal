@@ -55,7 +55,11 @@ Content-Type :text/html
 
 ###项目结构简单描述
 项目共分为四个模块，并分别对应四个接口和四个单元测试，分别是：
+
 1、商品管理模块，对应接口（\src\main\java\com\tw\service\item\ItemService.java），主要功能：获取数据库中存储的商品列表和优惠列表。
+
 2、输入模块，对应接口（\src\main\java\com\tw\service\input\InputService.java），主要功能：将用户输入条码转化为List，并去重复，检查是否是商品库中的条码、并检查条码的格式是否正确
+
 3、处理模块，对应接口（\src\main\java\com\tw\service\compute\ComputeService.java），主要功能：将输入模块传入的List按照不同的优惠和策略，输出一个computedItem类，其中包涵要输出的所有信息
+
 4、输出模块，对应接口（\src\main\java\com\tw\service\ouput\OutputEachItem.java），主要功能：将处理模块传入的ComputedItem处理得到输出字符串
