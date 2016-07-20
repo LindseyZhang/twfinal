@@ -64,4 +64,35 @@ public class ComputedItem {
     public void setDiscountPrice(double discountPrice) {
         this.discountPrice = discountPrice;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ComputedItem that = (ComputedItem) o;
+
+        if (Double.compare(that.totalPrice, totalPrice) != 0) return false;
+        if (Double.compare(that.discountPrice, discountPrice) != 0) return false;
+        if (promotianName != null ? !promotianName.equals(that.promotianName) : that.promotianName != null)
+            return false;
+        if (normalPayitem != null ? !normalPayitem.equals(that.normalPayitem) : that.normalPayitem != null)
+            return false;
+        return promotions != null ? promotions.equals(that.promotions) : that.promotions == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = promotianName != null ? promotianName.hashCode() : 0;
+        result = 31 * result + (normalPayitem != null ? normalPayitem.hashCode() : 0);
+        result = 31 * result + (promotions != null ? promotions.hashCode() : 0);
+        temp = Double.doubleToLongBits(totalPrice);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(discountPrice);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }

@@ -23,7 +23,8 @@ public class PayItem {
         return "名称：" + this.getName()
                 + "，数量：" + this.getCount() + this.getUnit()
                 + "，单价：" + String.format("%.2f", this.getPrice())
-                + "(元)";
+                + "(元)"
+                +"，小计：" + String.format("%.2f", this.getPrice()*this.count)+"(元)\n";
     }
 
 

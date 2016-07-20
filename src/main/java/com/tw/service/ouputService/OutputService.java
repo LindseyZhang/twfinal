@@ -1,5 +1,6 @@
 package com.tw.service.ouputService;
 
+import com.tw.model.ComputedItem;
 import com.tw.model.PromotedItem;
 
 /**
@@ -8,8 +9,8 @@ import com.tw.model.PromotedItem;
 public interface OutputService {
     /**
      * 将处理完的PromotedItem，处理成String结果
-     * @param promotedItem
+     * @param computedItem
      * @return
      */
-    public String getOutput(PromotedItem promotedItem);
+    public String getOutput(ComputedItem computedItem);
 }
