@@ -33,6 +33,7 @@ public class ItemService {
         for (Item item : itemList) {
             itemMap.put(item.getBarcode(), item);
         }
+
         return itemMap;
     }
 

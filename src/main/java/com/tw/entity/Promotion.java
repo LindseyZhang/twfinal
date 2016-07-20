@@ -16,15 +16,13 @@ public class Promotion {
 
     @Column(name = "BARCODES")
     private String barcodes;
+    public Promotion(){
 
-    @Column(name = "LEVEL")
-    private int level;
+    }
 
-
-    public Promotion(String promotionName, String barcodes, int level) {
+    public Promotion(String promotionName, String barcodes) {
         this.promotionName = promotionName;
         this.barcodes = barcodes;
-        this.level = level;
     }
 
     public String getPromotionName() {
@@ -41,13 +39,5 @@ public class Promotion {
 
     public void setBarcodes(String barcodes) {
         this.barcodes = barcodes;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
     }
 }

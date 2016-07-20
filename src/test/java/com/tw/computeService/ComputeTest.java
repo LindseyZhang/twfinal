@@ -40,8 +40,8 @@ public class ComputeTest {
         payItems.add(new PayItem("羽毛球","ITEM000003","个", 1.00, 5));
         payItems.add(new PayItem("苹果","ITEM000005","斤", 5.50, 2));
         List<Promotion> promotions = new ArrayList<>();
-        promotions.add(new Promotion("BUY_TWO_GET_ONE_FREE","ITEM000001,ITEM000003",1));
-        promotions.add(new Promotion("SELL_BY_95","ITEM000003",2));
+        promotions.add(new Promotion("BUY_TWO_GET_ONE_FREE","ITEM000001,ITEM000003"));
+        promotions.add(new Promotion("SELL_BY_95","ITEM000003"));
         ComputeService computeService = new ComputeServiceImpl();
         when(itemService.loadPromotionFromDB()).thenReturn(promotions);
         ((ComputeServiceImpl)computeService).itemService = itemService;

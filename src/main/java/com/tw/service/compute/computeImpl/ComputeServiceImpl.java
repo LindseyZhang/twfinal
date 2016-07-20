@@ -10,6 +10,7 @@ import com.tw.service.compute.ComputeService;
 import com.tw.service.promotion.PromotionInterface;
 import com.tw.service.promotion.promotionImpl.PromotionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import java.util.List;
 /**
  * Created by qq422 on 2016/7/19.
  */
+@Service
 public class ComputeServiceImpl implements ComputeService {
 
     @Autowired

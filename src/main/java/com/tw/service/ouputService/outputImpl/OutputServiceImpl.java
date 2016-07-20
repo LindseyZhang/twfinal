@@ -6,12 +6,14 @@ import com.tw.model.PayItem;
 import com.tw.model.PromotedItem;
 import com.tw.service.ouputService.OutputEachItem;
 import com.tw.service.ouputService.OutputService;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 /**
  * Created by qq422 on 2016/7/19.
  */
+@Service
 public class OutputServiceImpl extends OutputServiceBase implements OutputService {
 
     /**

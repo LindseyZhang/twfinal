@@ -51,8 +51,8 @@ public class TwFinalApplicationTests {
         ((InputServiceImple)inputs).itemService = itemService;
         ArrayList<PayItem> result = inputs.transferStringToList(barcodes);
         List<Promotion> promotions = new ArrayList<>();
-        promotions.add(new Promotion("BUY_TWO_GET_ONE_FREE","ITEM000001,ITEM000003",1));
-        promotions.add(new Promotion("SELL_BY_95","ITEM000005",2));
+        promotions.add(new Promotion("BUY_TWO_GET_ONE_FREE","ITEM000001,ITEM000003"));
+        promotions.add(new Promotion("SELL_BY_95","ITEM000005"));
         ComputeService computeService = new ComputeServiceImpl();
         when(itemService.loadPromotionFromDB()).thenReturn(promotions);
         ((ComputeServiceImpl)computeService).itemService = itemService;
@@ -87,7 +87,7 @@ public class TwFinalApplicationTests {
         ((InputServiceImple)inputs).itemService = itemService;
         ArrayList<PayItem> result = inputs.transferStringToList(barcodes);
         List<Promotion> promotions = new ArrayList<>();
-        promotions.add(new Promotion("BUY_TWO_GET_ONE_FREE","ITEM000001,ITEM000003",1));
+        promotions.add(new Promotion("BUY_TWO_GET_ONE_FREE","ITEM000001,ITEM000003"));
         ComputeService computeService = new ComputeServiceImpl();
         when(itemService.loadPromotionFromDB()).thenReturn(promotions);
         ((ComputeServiceImpl)computeService).itemService = itemService;
@@ -123,7 +123,7 @@ public class TwFinalApplicationTests {
         ((InputServiceImple)inputs).itemService = itemService;
         ArrayList<PayItem> result = inputs.transferStringToList(barcodes);
         List<Promotion> promotions = new ArrayList<>();
-        promotions.add(new Promotion("SELL_BY_95","ITEM000005",2));
+        promotions.add(new Promotion("SELL_BY_95","ITEM000005"));
         ComputeService computeService = new ComputeServiceImpl();
         when(itemService.loadPromotionFromDB()).thenReturn(promotions);
         ((ComputeServiceImpl)computeService).itemService = itemService;

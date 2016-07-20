@@ -7,12 +7,13 @@ import com.tw.service.input.InputService;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+@Service
 public class InputServiceImple implements InputService {
     static Logger logger = Logger.getLogger (InputServiceImple.class.getName());
 
