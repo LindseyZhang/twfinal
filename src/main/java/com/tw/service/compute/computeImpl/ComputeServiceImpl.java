@@ -81,6 +81,7 @@ public class ComputeServiceImpl implements ComputeService {
             promotionData.setNeedPromotionBarcodes(barcodes);
             promotionDatas.add(promotionData);
             computedItem.getPromotions().put(item.getPromotionName(), new ArrayList<PromotedItem>());
+            computedItem.getPromotianName().add(item.getPromotionName());
         }
     }
 }
