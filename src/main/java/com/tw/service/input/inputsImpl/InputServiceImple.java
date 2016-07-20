@@ -48,10 +48,17 @@ public class InputServiceImple implements InputService {
         for (Object object : jsonArray) {
             checkBarcodeFormat((String)object);
             String[] spiltString = ((String)object).split("-");
+            checkInStore(payItemMap, spiltString[0]);
             addEachPayItemIntoMap(payItemMap, spiltString);
         }
         return payItemMap;
     }
+
+    private void checkInStore(HashMap<String, PayItem> payItemMap, String object) {
+        if(!itemMap.containsKey(object))
+            throw new RuntimeException(object +" is not in store");
+    }
+
     private void checkBarcodeFormat(String inBarcode) {
         Matcher matcher = pattern.matcher(inBarcode);
         if(!matcher.matches()){
