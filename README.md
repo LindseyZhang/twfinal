@@ -1,16 +1,18 @@
-### twfinal
 
-### 默认添加商品（可通过修改h2数据库表文件修改。（src\main\resources\data-h2.sql））
+# 默认添加商品（可通过修改h2数据库表文件修改。（src\main\resources\data-h2.sql））
+```
 ITEM (BARCODE, NAME, UNIT, PRICE) VALUES ('ITEM000001', '可口可乐', '瓶', 3.00);
 ITEM (BARCODE, NAME, UNIT, PRICE) VALUES ('ITEM000003', '羽毛球', '个', 1.00);
 ITEM (BARCODE, NAME, UNIT, PRICE) VALUES ('ITEM000005', '苹果', '斤', 5.50);
-
-###默认优惠方式（可通过修改h2数据库表文件修改。（src\main\resources\data-h2.sql））
+```
+# 默认优惠方式（可通过修改h2数据库表文件修改。（src\main\resources\data-h2.sql））
+```
 PROMOTION (PROMOTIONNAME, BARCODES) VALUES ('BUY_TWO_GET_ONE_FREE', 'ITEM000001,ITEM000003');
 PROMOTION (PROMOTIONNAME, BARCODES) VALUES ('SELL_BY_95', 'ITEM000005');
+```
 
 ### 启动application
-`gradlew clean bootRun
+gradlew clean bootRun
 
 ### 手动测试application
 可使用postman发送请求:
@@ -20,7 +22,7 @@ PROMOTION (PROMOTIONNAME, BARCODES) VALUES ('SELL_BY_95', 'ITEM000005');
 http://localhost:8080/pos-api/receipts
 ```
 
-*Method
+* Method
 ```
 POST
 ```
