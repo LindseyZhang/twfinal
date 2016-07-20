@@ -1,8 +1,8 @@
-package com.tw.service.ouputService.outputImpl;
+package com.tw.service.ouput.outputImpl;
 
 import com.tw.model.OutputItem;
 import com.tw.model.PromotedItem;
-import com.tw.service.ouputService.OutputEachItem;
+import com.tw.service.ouput.OutputEachItem;
 
 import java.util.List;
 

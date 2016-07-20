@@ -1,6 +1,6 @@
-package com.tw.service.ouputService.outputImpl;
+package com.tw.service.ouput.outputImpl;
 
-import com.tw.service.ouputService.OutputEachItem;
+import com.tw.service.ouput.OutputEachItem;
 
 
 public class OutputMethodFactory {

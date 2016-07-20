@@ -1,10 +1,10 @@
-package com.tw.service.ouputService.outputImpl;
+package com.tw.service.ouput.outputImpl;
 
 import com.tw.model.ComputedItem;
 import com.tw.model.OutputItem;
 import com.tw.model.PayItem;
-import com.tw.service.ouputService.OutputEachItem;
-import com.tw.service.ouputService.OutputService;
+import com.tw.service.ouput.OutputEachItem;
+import com.tw.service.ouput.OutputService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 

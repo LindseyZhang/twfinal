@@ -1,4 +1,4 @@
-package com.tw.service;
+package com.tw.service.item.itemServiceImpl;
 
 import com.tw.dao.ItemRepository;
 import com.tw.dao.PromotionRepository;
@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @Service
-public class ItemService {
+public class ItemServiceImpl {
 
     @Autowired
     public ItemRepository itemRepository;

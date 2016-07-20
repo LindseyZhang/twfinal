@@ -2,7 +2,7 @@ package com.tw.controller;
 
 import com.tw.service.compute.computeImpl.ComputeServiceImpl;
 import com.tw.service.input.inputsImpl.InputServiceImple;
-import com.tw.service.ouputService.outputImpl.OutputServiceImpl;
+import com.tw.service.ouput.outputImpl.OutputServiceImpl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

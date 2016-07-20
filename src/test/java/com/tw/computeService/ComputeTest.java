@@ -4,7 +4,7 @@ import com.tw.entity.Promotion;
 import com.tw.model.ComputedItem;
 import com.tw.model.PayItem;
 import com.tw.model.PromotedItem;
-import com.tw.service.ItemService;
+import com.tw.service.item.itemServiceImpl.ItemServiceImpl;
 import com.tw.service.compute.ComputeService;
 import com.tw.service.compute.computeImpl.ComputeServiceImpl;
 import org.junit.Before;
@@ -26,7 +26,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 @SpringApplicationConfiguration(classes = ComputeTest.class)
 public class ComputeTest {
     @Mock
-    ItemService itemService;
+    ItemServiceImpl itemServiceImpl;
 
 
     @Before
@@ -44,8 +44,8 @@ public class ComputeTest {
         promotions.add(new Promotion("BUY_TWO_GET_ONE_FREE","ITEM000001,ITEM000003"));
         promotions.add(new Promotion("SELL_BY_95","ITEM000003"));
         ComputeService computeService = new ComputeServiceImpl();
-        when(itemService.loadPromotionFromDB()).thenReturn(promotions);
-        ((ComputeServiceImpl)computeService).itemService = itemService;
+        when(itemServiceImpl.loadPromotionFromDB()).thenReturn(promotions);
+        ((ComputeServiceImpl)computeService).itemServiceImpl = itemServiceImpl;
         ComputedItem computedItem = computeService.computePromotion(payItems);
         System.out.println();
         ComputedItem execptComputedItem = new ComputedItem();
@@ -100,8 +100,8 @@ public class ComputeTest {
         List<Promotion> promotions = new ArrayList<>();
         promotions.add(new Promotion("BUY_TWO_GET_ONE_FREE","ITEM000001,ITEM000003"));
         ComputeService computeService = new ComputeServiceImpl();
-        when(itemService.loadPromotionFromDB()).thenReturn(promotions);
-        ((ComputeServiceImpl)computeService).itemService = itemService;
+        when(itemServiceImpl.loadPromotionFromDB()).thenReturn(promotions);
+        ((ComputeServiceImpl)computeService).itemServiceImpl = itemServiceImpl;
         ComputedItem computedItem = computeService.computePromotion(payItems);
         System.out.println();
         ComputedItem execptComputedItem = new ComputedItem();
@@ -151,8 +151,8 @@ public class ComputeTest {
         List<Promotion> promotions = new ArrayList<>();
         promotions.add(new Promotion("SELL_BY_95","ITEM000003"));
         ComputeService computeService = new ComputeServiceImpl();
-        when(itemService.loadPromotionFromDB()).thenReturn(promotions);
-        ((ComputeServiceImpl)computeService).itemService = itemService;
+        when(itemServiceImpl.loadPromotionFromDB()).thenReturn(promotions);
+        ((ComputeServiceImpl)computeService).itemServiceImpl = itemServiceImpl;
         ComputedItem computedItem = computeService.computePromotion(payItems);
         System.out.println();
         ComputedItem execptComputedItem = new ComputedItem();

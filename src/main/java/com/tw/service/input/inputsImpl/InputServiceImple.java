@@ -2,7 +2,7 @@ package com.tw.service.input.inputsImpl;
 
 import com.tw.entity.Item;
 import com.tw.model.PayItem;
-import com.tw.service.ItemService;
+import com.tw.service.item.itemServiceImpl.ItemServiceImpl;
 import com.tw.service.input.InputService;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -20,7 +20,7 @@ public class InputServiceImple implements InputService {
     public HashMap<String, Item> itemMap;
 
     @Autowired
-    public ItemService itemService;
+    public ItemServiceImpl itemServiceImpl;
 
     /*
 	 * 正则表达式来确认输入字符的合法性
@@ -30,7 +30,7 @@ public class InputServiceImple implements InputService {
     @Override
     public ArrayList<PayItem> transferStringToList(String barcodes) {
         logger.info("user input barcodes :" + barcodes);
-        itemMap = itemService.loadItemFromDBToMap();
+        itemMap = itemServiceImpl.loadItemFromDBToMap();
         return transferMapToList(barcodes);
     }
 

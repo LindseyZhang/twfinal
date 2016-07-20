@@ -5,7 +5,7 @@ import com.tw.model.ComputedItem;
 import com.tw.model.PayItem;
 import com.tw.model.PromotedItem;
 import com.tw.model.PromotionData;
-import com.tw.service.ItemService;
+import com.tw.service.item.itemServiceImpl.ItemServiceImpl;
 import com.tw.service.compute.ComputeService;
 import com.tw.service.promotion.PromotionInterface;
 import com.tw.service.promotion.promotionImpl.PromotionFactory;
@@ -22,7 +22,7 @@ public class ComputeServiceImpl implements ComputeService {
     static Logger logger = Logger.getLogger (ComputeServiceImpl.class.getName());
 
     @Autowired
-    public ItemService itemService;
+    public ItemServiceImpl itemServiceImpl;
 
     List<PromotionData> promotionDatas;
 
@@ -92,7 +92,7 @@ public class ComputeServiceImpl implements ComputeService {
     }
 
     private void initPromotionData() {
-        List<Promotion> promotions = itemService.loadPromotionFromDB();
+        List<Promotion> promotions = itemServiceImpl.loadPromotionFromDB();
         promotionDatas = new ArrayList<>();
         for (Promotion item:promotions) {
             transferDBdataToPromotionList(item);

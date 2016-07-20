@@ -4,13 +4,13 @@ import com.tw.entity.Item;
 import com.tw.entity.Promotion;
 import com.tw.model.ComputedItem;
 import com.tw.model.PayItem;
-import com.tw.service.ItemService;
+import com.tw.service.item.itemServiceImpl.ItemServiceImpl;
 import com.tw.service.compute.ComputeService;
 import com.tw.service.compute.computeImpl.ComputeServiceImpl;
 import com.tw.service.input.InputService;
 import com.tw.service.input.inputsImpl.InputServiceImple;
-import com.tw.service.ouputService.OutputService;
-import com.tw.service.ouputService.outputImpl.OutputServiceImpl;
+import com.tw.service.ouput.OutputService;
+import com.tw.service.ouput.outputImpl.OutputServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +31,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class TwFinalApplicationTests {
 
     @Mock
-    ItemService itemService;
+    ItemServiceImpl itemServiceImpl;
 
 
     @Before
@@ -47,15 +47,15 @@ public class TwFinalApplicationTests {
         itemMap.put("ITEM000003", new Item("ITEM000003", "羽毛球", "个", "", "", 1.00));
         itemMap.put("ITEM000005", new Item("ITEM000005", "苹果", "斤", "", "", 5.50));
         InputService inputs = new InputServiceImple();
-        when(itemService.loadItemFromDBToMap()).thenReturn(itemMap);
-        ((InputServiceImple)inputs).itemService = itemService;
+        when(itemServiceImpl.loadItemFromDBToMap()).thenReturn(itemMap);
+        ((InputServiceImple)inputs).itemServiceImpl = itemServiceImpl;
         ArrayList<PayItem> result = inputs.transferStringToList(barcodes);
         List<Promotion> promotions = new ArrayList<>();
         promotions.add(new Promotion("BUY_TWO_GET_ONE_FREE","ITEM000001,ITEM000003"));
         promotions.add(new Promotion("SELL_BY_95","ITEM000005"));
         ComputeService computeService = new ComputeServiceImpl();
-        when(itemService.loadPromotionFromDB()).thenReturn(promotions);
-        ((ComputeServiceImpl)computeService).itemService = itemService;
+        when(itemServiceImpl.loadPromotionFromDB()).thenReturn(promotions);
+        ((ComputeServiceImpl)computeService).itemServiceImpl = itemServiceImpl;
         ComputedItem computedItem = computeService.computePromotion(result);
         OutputService outputService = new OutputServiceImpl();
         String results = outputService.getOutput(computedItem);
@@ -83,14 +83,14 @@ public class TwFinalApplicationTests {
         itemMap.put("ITEM000003", new Item("ITEM000003", "羽毛球", "个", "", "", 1.00));
         itemMap.put("ITEM000005", new Item("ITEM000005", "苹果", "斤", "", "", 5.50));
         InputService inputs = new InputServiceImple();
-        when(itemService.loadItemFromDBToMap()).thenReturn(itemMap);
-        ((InputServiceImple)inputs).itemService = itemService;
+        when(itemServiceImpl.loadItemFromDBToMap()).thenReturn(itemMap);
+        ((InputServiceImple)inputs).itemServiceImpl = itemServiceImpl;
         ArrayList<PayItem> result = inputs.transferStringToList(barcodes);
         List<Promotion> promotions = new ArrayList<>();
         promotions.add(new Promotion("BUY_TWO_GET_ONE_FREE","ITEM000001,ITEM000003"));
         ComputeService computeService = new ComputeServiceImpl();
-        when(itemService.loadPromotionFromDB()).thenReturn(promotions);
-        ((ComputeServiceImpl)computeService).itemService = itemService;
+        when(itemServiceImpl.loadPromotionFromDB()).thenReturn(promotions);
+        ((ComputeServiceImpl)computeService).itemServiceImpl = itemServiceImpl;
         ComputedItem computedItem = computeService.computePromotion(result);
         OutputService outputService = new OutputServiceImpl();
         String results = outputService.getOutput(computedItem);
@@ -119,14 +119,14 @@ public class TwFinalApplicationTests {
         itemMap.put("ITEM000003", new Item("ITEM000003", "羽毛球", "个", "", "", 1.00));
         itemMap.put("ITEM000005", new Item("ITEM000005", "苹果", "斤", "", "", 5.50));
         InputService inputs = new InputServiceImple();
-        when(itemService.loadItemFromDBToMap()).thenReturn(itemMap);
-        ((InputServiceImple)inputs).itemService = itemService;
+        when(itemServiceImpl.loadItemFromDBToMap()).thenReturn(itemMap);
+        ((InputServiceImple)inputs).itemServiceImpl = itemServiceImpl;
         ArrayList<PayItem> result = inputs.transferStringToList(barcodes);
         List<Promotion> promotions = new ArrayList<>();
         promotions.add(new Promotion("SELL_BY_95","ITEM000005"));
         ComputeService computeService = new ComputeServiceImpl();
-        when(itemService.loadPromotionFromDB()).thenReturn(promotions);
-        ((ComputeServiceImpl)computeService).itemService = itemService;
+        when(itemServiceImpl.loadPromotionFromDB()).thenReturn(promotions);
+        ((ComputeServiceImpl)computeService).itemServiceImpl = itemServiceImpl;
         ComputedItem computedItem = computeService.computePromotion(result);
         OutputService outputService = new OutputServiceImpl();
         String results = outputService.getOutput(computedItem);

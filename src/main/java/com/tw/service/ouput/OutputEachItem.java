@@ -1,4 +1,4 @@
-package com.tw.service.ouputService;
+package com.tw.service.ouput;
 
 import com.tw.model.OutputItem;
 import com.tw.model.PromotedItem;

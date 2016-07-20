@@ -1,4 +1,4 @@
-package com.tw.service.ouputService.outputImpl;
+package com.tw.service.ouput.outputImpl;
 
 public class OutputServiceBase {
     protected String getHead(){
