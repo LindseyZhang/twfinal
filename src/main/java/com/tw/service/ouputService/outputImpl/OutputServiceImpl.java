@@ -8,9 +8,7 @@ import com.tw.service.ouputService.OutputService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by qq422 on 2016/7/19.
- */
+
 @Service
 public class OutputServiceImpl extends OutputServiceBase implements OutputService {
     static Logger logger = Logger.getLogger (OutputServiceImpl.class.getName());

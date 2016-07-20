@@ -1,8 +1,5 @@
 package com.tw.model;
 
-/**
- * Created by qq422 on 2016/7/19.
- */
 public class OutputItem {
     private StringBuilder frontPart;
     private StringBuilder lastPart;

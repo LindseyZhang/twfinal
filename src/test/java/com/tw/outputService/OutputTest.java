@@ -1,16 +1,12 @@
 package com.tw.outputService;
 
-import com.tw.InputService.InputTest;
 import com.tw.model.ComputedItem;
 import com.tw.model.PayItem;
 import com.tw.model.PromotedItem;
-import com.tw.service.ItemService;
 import com.tw.service.ouputService.OutputService;
 import com.tw.service.ouputService.outputImpl.OutputServiceImpl;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -19,9 +15,7 @@ import java.util.HashMap;
 
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by qq422 on 2016/7/19.
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = OutputTest.class)
 public class OutputTest {

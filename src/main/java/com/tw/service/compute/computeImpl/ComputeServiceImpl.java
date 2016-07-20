@@ -16,9 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by qq422 on 2016/7/19.
- */
+
 @Service
 public class ComputeServiceImpl implements ComputeService {
     static Logger logger = Logger.getLogger (ComputeServiceImpl.class.getName());

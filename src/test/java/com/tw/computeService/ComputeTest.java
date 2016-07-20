@@ -22,9 +22,6 @@ import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-/**
- * Created by qq422 on 2016/7/19.
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ComputeTest.class)
 public class ComputeTest {

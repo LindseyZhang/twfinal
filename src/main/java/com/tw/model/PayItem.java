@@ -1,6 +1,6 @@
 package com.tw.model;
 
-import com.tw.entity.Item;
+
 
 public class PayItem {
 

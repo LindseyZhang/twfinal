@@ -6,9 +6,7 @@ import com.tw.service.ouputService.OutputEachItem;
 
 import java.util.List;
 
-/**
- * Created by qq422 on 2016/7/19.
- */
+
 public class OutputBuyTwoGiveOne implements OutputEachItem {
     public final int THREE = 3;
 

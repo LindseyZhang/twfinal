@@ -3,9 +3,6 @@ package com.tw.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by qq422 on 2016/7/19.
- */
 public class ComputedItem {
 
     //是否有促销，若有则放入该链表中，该链表对应了promotions图中的键值
