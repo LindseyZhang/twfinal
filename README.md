@@ -53,6 +53,22 @@ Content-Type :text/html
 ***************************************
 ```
 
+###请求错误
+
+* Status: 
+```
+400 Bad Request
+```
+
+* Body:
+```
+request error:wrong barcode format:ITEM00000
+
+request error:ITEM000002 is not in store
+
+request error:input List is no payitems!
+````
+
 ###项目结构简单描述
 项目共分为四个模块，并分别对应四个接口和四个单元测试，分别是：
 
