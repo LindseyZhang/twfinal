@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/pos-api")
@@ -25,11 +26,16 @@ public class PosController {
 
     @RequestMapping(value = "receipts", method = RequestMethod.POST)
     @ResponseBody
-    public String generateReceiptFromBarcodes(HttpServletResponse response, @RequestBody String inputs) {
-        logger.info("request body :" + inputs);
-        String receipt = outputService.getOutput(computeService.computePromotion(inputService.transferStringToList(inputs)));
-        System.out.println(receipt);
-        response.setContentType("charset=utf-8");
-        return receipt;
+    public String generateReceiptFromBarcodes(HttpServletResponse response, @RequestBody String inputs) throws IOException {
+        try {
+            logger.info("request body :" + inputs);
+            String receipt = outputService.getOutput(computeService.computePromotion(inputService.transferStringToList(inputs)));
+            System.out.println(receipt);
+            response.setContentType("charset=utf-8");
+            return receipt;
+        }catch (Exception e){
+            response.setStatus(400);
+            return "request error:" + e.getMessage();
+        }
     }
 }
