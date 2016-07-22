@@ -30,7 +30,7 @@ public class PosController {
         try {
             logger.info("request body :" + inputs);
             String receipt = outputService.getOutput(computeService.computePromotion(inputService.transferStringToList(inputs)));
-            System.out.println(receipt);
+            
             response.setContentType("charset=utf-8");
             return receipt;
         }catch (Exception e){
