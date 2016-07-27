@@ -68,7 +68,9 @@ public class PosService {
                 savePerItem = promotion.getMoneySavedByCurrentItem(payItem);
                 if (Math.abs(savePerItem) > PRECISION) {
                     saveMoney += savePerItem;
-                    promotionBuilder.append(promotion.getItemPromotionDetail(payItem));
+                    if (null != promotion.getItemPromotionDetail(payItem)) {
+                        promotionBuilder.append(promotion.getItemPromotionDetail(payItem));
+                    }
                 }
             }
             stringBuilder.append(promotion.getItemSellDetail(payItem));
